@@ -86,8 +86,12 @@ namespace StarterAssets
 			}
 		}
 
+		public static StarterAssets.FirstPersonController instance;
+		public Vector3 playerMoveOffset;
+
 		private void Awake()
 		{
+			instance = this;
 			// get a reference to our main camera
 			if (_mainCamera == null)
 			{
@@ -193,9 +197,15 @@ namespace StarterAssets
 				// move
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
 			}
+			Vector3 moveDir = inputDirection.normalized * _speed + new Vector3(0.0f, _verticalVelocity, 0.0f) + playerMoveOffset;
+			if(moveDir.magnitude > 8)
+            {
+				moveDir /= moveDir.magnitude / 8;
+            }
+			Debug.Log(moveDir.magnitude);
 
 			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			_controller.Move(moveDir * Time.deltaTime);
 		}
 
 		private void JumpAndGravity()

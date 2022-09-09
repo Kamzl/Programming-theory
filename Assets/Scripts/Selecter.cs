@@ -5,10 +5,11 @@ using UnityEngine.InputSystem;
 
 public class Selecter : MonoBehaviour
 {
-    public BoxCollider selecter;
     private CrateController crate;
     private CrateController grabbedCrate;
-    Mouse mouse;
+    private Mouse mouse;
+
+    [SerializeField] float grabRange = 2.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,8 +39,8 @@ public class Selecter : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = new Ray(transform.position, transform.forward);
-        Debug.DrawRay(transform.position, transform.forward * 10);
-        if(Physics.Raycast(ray, out hit, 10.0f) && hit.collider.CompareTag("Crate"))
+        Debug.DrawRay(transform.position, transform.forward * grabRange);
+        if(Physics.Raycast(ray, out hit, grabRange) && hit.collider.CompareTag("Crate"))
         {
             if(crate == null)
             {

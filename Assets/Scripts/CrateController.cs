@@ -6,11 +6,14 @@ public class CrateController : MonoBehaviour
 {
     private Outline outline;
     private Rigidbody crateRb;
+    public GameObject player;
 
-    public float force = 10.0f;
+    [SerializeField] float force = 400.0f;
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
+        Debug.Log(gameObject.name);
+        player = GameObject.Find("PlayerCapsule");
         outline = GetComponent<Outline>();
         crateRb = GetComponent<Rigidbody>();
     }
@@ -23,7 +26,14 @@ public class CrateController : MonoBehaviour
 
     public void TurnOutlineOn()
     {
-        outline.enabled = true;
+        if(outline != null)
+        {
+            outline.enabled = true;
+        }
+        else
+        {
+            Debug.Log("Blin");
+        }
     }
 
     public void TurnOutlineOff()
