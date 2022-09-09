@@ -6,14 +6,16 @@ public class CrateController : MonoBehaviour
 {
     private Outline outline;
     protected Rigidbody crateRb;
-    public GameObject player;
+    [SerializeField] int crateType;             //0 - usual crate, 1 - drunken crate, 2 - fragile crate, 3 - bouncy crate
+
+    [SerializeField] string targetPallet;
+
 
     [SerializeField] float force = 400.0f;
     // Start is called before the first frame update
     protected virtual void Awake()
     {
         Debug.Log(gameObject.name);
-        player = GameObject.Find("PlayerCapsule");
         outline = GetComponent<Outline>();
         crateRb = GetComponent<Rigidbody>();
     }
@@ -26,14 +28,7 @@ public class CrateController : MonoBehaviour
 
     public void TurnOutlineOn()
     {
-        if(outline != null)
-        {
-            outline.enabled = true;
-        }
-        else
-        {
-            Debug.Log("Blin");
-        }
+        outline.enabled = true;
     }
 
     public void TurnOutlineOff()
@@ -62,5 +57,14 @@ public class CrateController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         gameObject.layer = 0;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == targetPallet)
+        {
+            crateRb.velocity = Vector3.zero;
+            GameManager.instance.setCratePlaced(crateType);
+        }
     }
 }

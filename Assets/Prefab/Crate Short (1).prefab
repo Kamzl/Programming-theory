@@ -144,4 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a732c7108389514888d0a789d6a3f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crateType: 0
+  targetPallet: Usual Palett
   force: 400

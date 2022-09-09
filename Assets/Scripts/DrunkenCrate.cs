@@ -6,7 +6,7 @@ public class DrunkenCrate : CrateController
 {
     private Vector3 drunkOffset;
     [SerializeField] float drunkSpeed = 0.005f;
-    public bool isDrunk = false;
+    private bool isDrunk = false;
     void Start()
     {
         

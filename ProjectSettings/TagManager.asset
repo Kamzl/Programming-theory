@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - Crate
+  - Palett
   layers:
   - Default
   - TransparentFX
