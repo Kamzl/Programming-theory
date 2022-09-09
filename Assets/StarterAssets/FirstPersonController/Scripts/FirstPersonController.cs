@@ -202,7 +202,6 @@ namespace StarterAssets
             {
 				moveDir /= moveDir.magnitude / 8;
             }
-			Debug.Log(moveDir.magnitude);
 
 			// move the player
 			_controller.Move(moveDir * Time.deltaTime);

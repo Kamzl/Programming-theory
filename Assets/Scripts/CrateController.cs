@@ -5,7 +5,7 @@ using UnityEngine;
 public class CrateController : MonoBehaviour
 {
     private Outline outline;
-    private Rigidbody crateRb;
+    protected Rigidbody crateRb;
     public GameObject player;
 
     [SerializeField] float force = 400.0f;
