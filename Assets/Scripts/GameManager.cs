@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public bool usCratePlaced { get; private set; } = false;
-    public bool drCratePlaced { get; private set; } = false;
-    public bool frCratePlaced { get; private set; } = false;
-    public bool bnCratePlaced { get; private set; } = false;
+    public bool isUsCratePlaced { get; private set; } = false;
+    public bool isDrCratePlaced { get; private set; } = false;
+    public bool isFrCratePlaced { get; private set; } = false;
+    public bool isBnCratePlaced { get; private set; } = false;
+
     public static GameManager instance;
+    [SerializeField] UISceneHandler sceneHandler;
+
+    private int time;
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(TimeCount());
     }
 
     private void Awake()
@@ -26,22 +30,42 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void setCratePlaced(int crate)
+    public void SetCratePlaced(int crate)
     {
         switch (crate)
         {
             case 0:
-                usCratePlaced = true;
+                isUsCratePlaced = true;
+                Debug.Log("Usual");
                 break;
             case 1:
-                drCratePlaced = true;
+                isDrCratePlaced = true;
+                Debug.Log("Drunken");
                 break;
             case 2:
-                frCratePlaced = true;
+                isFrCratePlaced = true;
+                Debug.Log("Fragile");
                 break;
             case 3:
-                bnCratePlaced = true;
+                isBnCratePlaced = true;
+                Debug.Log("Bouncy");
                 break;
+        }
+        if(isBnCratePlaced && isDrCratePlaced && isFrCratePlaced && isUsCratePlaced)
+        {
+            Debug.Log("All");
+            MainManager.instance.SetScore(time / 10f);
+            MainManager.instance.EndGame();
+        }
+    }
+
+    private IEnumerator TimeCount()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+            time += 1;
+            sceneHandler.SetTimeOnScreen(time);
         }
     }
 }

@@ -59,12 +59,12 @@ public class CrateController : MonoBehaviour
         gameObject.layer = 0;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == targetPallet)
         {
             crateRb.velocity = Vector3.zero;
-            GameManager.instance.setCratePlaced(crateType);
+            GameManager.instance.SetCratePlaced(crateType);
         }
     }
 }
