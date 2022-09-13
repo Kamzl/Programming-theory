@@ -13,21 +13,20 @@ public class Selecter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        mouse = Mouse.current;
     }
 
     // Update is called once per frame
     void Update()
     {
-        mouse = Mouse.current;
-        if (mouse.leftButton.wasPressedThisFrame)
+        if (mouse.leftButton.wasPressedThisFrame)           // Checks for mouse click
         {
-            if(crate != null && grabbedCrate == null)
+            if(crate != null && grabbedCrate == null)       // If looking at a crate and doesn't have any crate grabbed - grab the crate
             {
                 crate.Grab(transform);
                 grabbedCrate = crate;
             }
-            else if(grabbedCrate != null)
+            else if(grabbedCrate != null)                   // Throwing an already grabbed crate
             {
                 grabbedCrate.Launch(transform.forward);
                 grabbedCrate = null;
@@ -38,27 +37,23 @@ public class Selecter : MonoBehaviour
     private void FixedUpdate()
     {
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.forward);
-        Debug.DrawRay(transform.position, transform.forward * grabRange);
-        if(Physics.Raycast(ray, out hit, grabRange) && hit.collider.CompareTag("Crate"))
+        Ray ray = new Ray(transform.position, transform.forward);       // Making a ray for future raycast
+        if(Physics.Raycast(ray, out hit, grabRange) && hit.collider.CompareTag("Crate"))        // If looking at the crate
         {
-            if(crate == null)
+            if(crate == null)       // If haven't looked at the other crate on the last frame
             {
-                Debug.Log("Enter");
                 crate = hit.collider.GetComponent<CrateController>();
                 crate.TurnOutlineOn();
             }
-            else if(crate.gameObject.name != hit.collider.name)
+            else if(crate.gameObject.name != hit.collider.name)     // If looked at the other crate on the last frame
             {
                 crate.TurnOutlineOff();
-                Debug.Log("Enter");
                 crate = hit.collider.GetComponent<CrateController>();
                 crate.TurnOutlineOn();
             }
         }
-        else if(crate != null)
+        else if(crate != null)      // If turned away from the crate
         {
-            Debug.Log("Exit");
             crate.TurnOutlineOff();
             crate = null;
         }

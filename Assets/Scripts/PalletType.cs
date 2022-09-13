@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PalletType : MonoBehaviour
 {
-    public int type;
+    public int type;        //Nice c(lass)
     // Start is called before the first frame update
     void Start()
     {

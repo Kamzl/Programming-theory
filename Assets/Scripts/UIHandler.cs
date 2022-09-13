@@ -18,15 +18,8 @@ public class UIHandler : MonoBehaviour
 
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-        if(MainManager.instance == null)
-        {
-            return;
-        }
-        MainManager tempInst = MainManager.instance;
-        highScoreText.text = tempInst._playerHighName + ": " + tempInst._highScore + '\n' + "Your Score: " + tempInst._score;
-        startNameField.text = tempInst._playerName;
+        MakeCursorVisible();
+        SetUIText();
     }
     // Update is called once per frame
     void Update()
@@ -34,15 +27,23 @@ public class UIHandler : MonoBehaviour
         
     }
 
-    public void BeginWork()
-    {
-        Awake();
-    }
-
     public void StartGame()
     {
-        MainManager.instance.SetPlayerName(startNameField.text);
+        MainManager.instance.SetPlayerName(startNameField.text);        // Pass current player name from the input field to the Main Manager
         MainManager.instance.StartGame();
+    }
+
+    private void MakeCursorVisible()
+    {
+        Cursor.lockState = CursorLockMode.Confined;     // Make mouse cursor visible after an FPS scene
+        Cursor.visible = true;
+    }
+
+    private void SetUIText()
+    {
+        MainManager tempInst = MainManager.instance;
+        highScoreText.text = tempInst._playerHighName + ": " + tempInst._highScore + '\n' + "Your Time: " + tempInst._score;       // Score field text
+        startNameField.text = tempInst._playerName;         // Make the last chosen player name pre-written in the input field
     }
 
     public void ExitGame()

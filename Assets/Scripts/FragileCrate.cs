@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FragileCrate : CrateController
+public class FragileCrate : CrateController         // Derived from the Crate Controller script
 {
     // Start is called before the first frame update
     private Vector3 startPosition;
@@ -29,7 +29,7 @@ public class FragileCrate : CrateController
     {
         base.OnCollisionEnter(collision);
         Debug.Log("Collision");
-        if (!(collision.gameObject.CompareTag("Palett") || collision.gameObject.CompareTag("Crate") || collision.gameObject.CompareTag("Player")))
+        if (!(collision.gameObject.CompareTag("Palett") || collision.gameObject.CompareTag("Crate") || collision.gameObject.CompareTag("Player")))      // If collided with a wall - return to the original position
         {
             gameObject.transform.position = startPosition;
             gameObject.transform.rotation = startRotation;

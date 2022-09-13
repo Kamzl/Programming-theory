@@ -11,7 +11,7 @@ public class MainManager : MonoBehaviour
     {
         get
         {
-            return playerName == null ? "Your time" : playerName;
+            return playerName == null ? "Player name" : playerName;               // Happens on the first launch
         }
         private set => playerName = value;
     }
@@ -20,7 +20,7 @@ public class MainManager : MonoBehaviour
     {
         get
         {
-            return score >= 999999 ? 0 : score;
+            return score >= 999999 ? 0 : score;                                     // Happens every launch
         }
         private set => score = value;
     }
@@ -29,7 +29,7 @@ public class MainManager : MonoBehaviour
     {
         get
         {
-            return playerHighName == null ? "Best time" : playerHighName;
+            return playerHighName == null ? "Best time" : playerHighName;           // Happens on the first launch
         }
         private set => playerHighName = value;
     }
@@ -38,7 +38,7 @@ public class MainManager : MonoBehaviour
     {
         get
         {
-            return highScore >= 999999 ? 0 : highScore;
+            return highScore >= 999999 ? 0 : highScore;                             // Happens on the first launch
         }
         private set => highScore = value;
     }
@@ -49,21 +49,24 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        score = 999999;
-        highScore = 999999;
+
     }
 
     private void Awake()
     {
-        if (instance != null)
+        if (instance != null)               // Singleton initiation
         {
             Destroy(gameObject);
             return;
         }
         instance = this;
+
+        // Make initial scores big enough for player to never actually reach it
+        score = 999999;
+        highScore = 999999;
+
         LoadData();
-        uiHandler.BeginWork();
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);      // Main Manager should been preserved between scenes for the usage of a player name and his score
     }
 
     // Update is called once per frame
@@ -76,22 +79,17 @@ public class MainManager : MonoBehaviour
     {
         playerName = name;
     }
-    public void SetScore(float score)
+    public void SetScore(float score)       // Show player time in the menu and, if his time beats the record, save new best time and best player name
     {
-        Debug.Log("Saved score: " + this.score);
-        Debug.Log("Our score: " + score);
-        Debug.Log("High score: " + highScore);
         this.score = score;
         if(score < highScore)
         {
             highScore = score;
             playerHighName = playerName;
         }
-        Debug.Log("Saved score: " + this.score);
-        Debug.Log("High score: " + highScore);
     }
     [SerializeField]
-    class SaveInfo
+    class SaveInfo          // Class that exists for between-sessions data persistence
     {
         public string playerLastName;
         public string playerHighName;
@@ -107,7 +105,7 @@ public class MainManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void SaveData()
+    public void SaveData()  // Between sessions data save
     {
         SaveInfo data = new SaveInfo();
         data.playerLastName = playerName;
@@ -119,7 +117,7 @@ public class MainManager : MonoBehaviour
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
-    private void LoadData()
+    private void LoadData() // Between sessions data load
     {
         string path = Application.persistentDataPath + "/savefile.json";
         if (File.Exists(path))

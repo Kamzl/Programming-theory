@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,20 +11,20 @@ public class GameManager : MonoBehaviour
     public bool isBnCratePlaced { get; private set; } = false;
 
     public static GameManager instance;
-    [SerializeField] UISceneHandler sceneHandler;
+    [SerializeField] TextMeshProUGUI timeText;
 
     private int time;
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;           // Cursor locking
         Cursor.visible = false;
-        StartCoroutine(TimeCount());
+        StartCoroutine(TimeCount());                        // Timer starts
     }
 
     private void Awake()
     {
-        instance = this;
+        instance = this;                                    // Creation of GameManager singleton
     }
 
     // Update is called once per frame
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void SetCratePlaced(int crate)
+    public void SetCratePlaced(int crate)                   // Method is called when crate collides with corresponding pallet
     {
         switch (crate)
         {
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Bouncy");
                 break;
         }
-        if(isBnCratePlaced && isDrCratePlaced && isFrCratePlaced && isUsCratePlaced)
+        if(isBnCratePlaced && isDrCratePlaced && isFrCratePlaced && isUsCratePlaced)    // When all crates is on their corresponding pallet - end the game
         {
             Debug.Log("All");
             MainManager.instance.SetScore(time / 10f);
@@ -61,13 +62,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator TimeCount()
+    private IEnumerator TimeCount()                                     // Timer
     {
         while (true)
         {
             yield return new WaitForSeconds(0.1f);
             time += 1;
-            sceneHandler.SetTimeOnScreen(time);
+            timeText.text = "Time: " + time / 10 + '.' + time % 10;     // Showing passed time on screen
         }
     }
 }

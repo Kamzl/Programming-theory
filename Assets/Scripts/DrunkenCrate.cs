@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrunkenCrate : CrateController
+public class DrunkenCrate : CrateController         // Derived from the Crate Controller script
 {
     private Vector3 drunkOffset;
     [SerializeField] float drunkSpeed = 0.005f;
@@ -15,21 +15,20 @@ public class DrunkenCrate : CrateController
     // Update is called once per frame
     void Update()
     {
-        if(transform.parent != null && !isDrunk)
+        if(transform.parent != null && !isDrunk)        // If grabbed by a player
         {
             isDrunk = true;
             BeDrunk();
             StartCoroutine(DrunkOffsetCalculation());
         }
-        else if(transform.parent == null && isDrunk)
+        else if(transform.parent == null && isDrunk)    // If being thrown by a player
         {
-            StarterAssets.FirstPersonController.instance.playerMoveOffset = Vector3.zero;
-            Debug.Log(StarterAssets.FirstPersonController.instance.playerMoveOffset);
+            StarterAssets.FirstPersonController.instance.playerMoveOffset = Vector3.zero;       // Stop being drunk
             isDrunk = false;
         }
     }
 
-    private IEnumerator DrunkOffsetCalculation()
+    private IEnumerator DrunkOffsetCalculation()        // Go to a random direction which is changed every second
     {
         while (transform.parent != null)
         {
@@ -41,7 +40,7 @@ public class DrunkenCrate : CrateController
         }
     }
 
-    private void BeDrunk()
+    private void BeDrunk()      // Calculation of a random direction to go to (and applying it to the movement script)
     {
         drunkOffset = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
         StarterAssets.FirstPersonController.instance.playerMoveOffset = drunkOffset * drunkSpeed;

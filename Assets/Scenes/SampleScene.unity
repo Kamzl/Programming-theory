@@ -1071,6 +1071,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5393215578589016642, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 8616685848737228371, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: MoveSpeed
       value: 5
@@ -1526,7 +1530,6 @@ GameObject:
   - component: {fileID: 834240625}
   - component: {fileID: 834240624}
   - component: {fileID: 834240623}
-  - component: {fileID: 834240622}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1534,19 +1537,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &834240622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 834240621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc01e106efd99c841aed1bc4152df200, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeText: {fileID: 2130035402}
 --- !u!114 &834240623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2688,7 +2678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db68e0e67e686e4cbab84cdcfbb5780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneHandler: {fileID: 834240622}
+  timeText: {fileID: 2130035402}
 --- !u!4 &1419908665
 Transform:
   m_ObjectHideFlags: 0
