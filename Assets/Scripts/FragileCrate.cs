@@ -25,8 +25,9 @@ public class FragileCrate : CrateController
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
+        base.OnCollisionEnter(collision);
         Debug.Log("Collision");
         if (!(collision.gameObject.CompareTag("Palett") || collision.gameObject.CompareTag("Crate") || collision.gameObject.CompareTag("Player")))
         {
