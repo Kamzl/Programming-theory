@@ -8,9 +8,6 @@ public class CrateController : MonoBehaviour
     protected Rigidbody crateRb;
     [SerializeField] int crateType;             //0 - usual crate, 1 - drunken crate, 2 - fragile crate, 3 - bouncy crate
 
-    [SerializeField] string targetPallet;
-
-
     [SerializeField] float force = 400.0f;
     // Start is called before the first frame update
     protected virtual void Awake()
@@ -61,7 +58,7 @@ public class CrateController : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == targetPallet)
+        if (collision.gameObject.GetComponent<PalletType>().type == crateType)
         {
             crateRb.velocity = Vector3.zero;
             GameManager.instance.SetCratePlaced(crateType);

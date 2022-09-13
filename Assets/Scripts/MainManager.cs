@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class MainManager : MonoBehaviour
 {
@@ -60,6 +61,7 @@ public class MainManager : MonoBehaviour
             return;
         }
         instance = this;
+        LoadData();
         uiHandler.BeginWork();
         DontDestroyOnLoad(gameObject);
     }
@@ -91,9 +93,9 @@ public class MainManager : MonoBehaviour
     [SerializeField]
     class SaveInfo
     {
-        string playerLastName;
-        string playerScoreName;
-        int playerScore;
+        public string playerLastName;
+        public string playerHighName;
+        public float playerScore;
     }
     public void StartGame()
     {
@@ -103,5 +105,31 @@ public class MainManager : MonoBehaviour
     public void EndGame()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void SaveData()
+    {
+        SaveInfo data = new SaveInfo();
+        data.playerLastName = playerName;
+        data.playerHighName = playerHighName;
+        data.playerScore = highScore;
+
+        string json = JsonUtility.ToJson(data);
+
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+    }
+
+    private void LoadData()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            SaveInfo data = JsonUtility.FromJson<SaveInfo>(json);
+
+            playerName = data.playerLastName;
+            playerHighName = data.playerHighName;
+            highScore = data.playerScore;
+        }
     }
 }
