@@ -42,14 +42,12 @@ public class Selecter : MonoBehaviour
         {
             if(crate == null)       // If haven't looked at the other crate on the last frame
             {
-                crate = hit.collider.GetComponent<CrateController>();
-                crate.TurnOutlineOn();
+                LookOnCrate(hit);
             }
             else if(crate.gameObject.name != hit.collider.name)     // If looked at the other crate on the last frame
             {
                 crate.TurnOutlineOff();
-                crate = hit.collider.GetComponent<CrateController>();
-                crate.TurnOutlineOn();
+                LookOnCrate(hit);
             }
         }
         else if(crate != null)      // If turned away from the crate
@@ -57,5 +55,11 @@ public class Selecter : MonoBehaviour
             crate.TurnOutlineOff();
             crate = null;
         }
+    }
+
+    private void LookOnCrate(RaycastHit hit)        // ABSTRACTION
+    {
+        crate = hit.collider.GetComponent<CrateController>();
+        crate.TurnOutlineOn();
     }
 }

@@ -5,10 +5,10 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public bool isUsCratePlaced { get; private set; } = false;
-    public bool isDrCratePlaced { get; private set; } = false;
-    public bool isFrCratePlaced { get; private set; } = false;
-    public bool isBnCratePlaced { get; private set; } = false;
+    public bool isUsCratePlaced { get; private set; } = false;  // ENCAPSULATION
+    public bool isDrCratePlaced { get; private set; } = false;  // ENCAPSULATION
+    public bool isFrCratePlaced { get; private set; } = false;  // ENCAPSULATION
+    public bool isBnCratePlaced { get; private set; } = false;  // ENCAPSULATION
 
     public static GameManager instance;
     [SerializeField] TextMeshProUGUI timeText;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FragileCrate : CrateController         // Derived from the Crate Controller script
+public class FragileCrate : CrateController         // INHERITANCE
 {
     // Start is called before the first frame update
     private Vector3 startPosition;
@@ -12,7 +12,7 @@ public class FragileCrate : CrateController         // Derived from the Crate Co
         
     }
 
-    protected override void Awake()
+    protected override void Awake()     // POLYMORPHISM
     {
         base.Awake();
         startPosition = transform.position;
@@ -25,7 +25,7 @@ public class FragileCrate : CrateController         // Derived from the Crate Co
         
     }
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)       // POLYMORPHISM
     {
         base.OnCollisionEnter(collision);
         Debug.Log("Collision");

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrunkenCrate : CrateController         // Derived from the Crate Controller script
+public class DrunkenCrate : CrateController         // INHERITANCE
 {
     private Vector3 drunkOffset;
     [SerializeField] float drunkSpeed = 0.005f;
@@ -40,9 +40,9 @@ public class DrunkenCrate : CrateController         // Derived from the Crate Co
         }
     }
 
-    private void BeDrunk()      // Calculation of a random direction to go to (and applying it to the movement script)
+    private void BeDrunk()      // ABSTRACTION
     {
-        drunkOffset = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
-        StarterAssets.FirstPersonController.instance.playerMoveOffset = drunkOffset * drunkSpeed;
+        drunkOffset = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));         // Calculation of a random direction to go
+        StarterAssets.FirstPersonController.instance.playerMoveOffset = drunkOffset * drunkSpeed;   // and applying it to the movement script
     }
 }

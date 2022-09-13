@@ -7,7 +7,7 @@ using System.IO;
 public class MainManager : MonoBehaviour
 {
     private string playerName;
-    public string _playerName
+    public string _playerName           // ENCAPSULATION
     {
         get
         {
@@ -16,7 +16,7 @@ public class MainManager : MonoBehaviour
         private set => playerName = value;
     }
     private float score;
-    public float _score
+    public float _score                 // ENCAPSULATION
     {
         get
         {
@@ -25,7 +25,7 @@ public class MainManager : MonoBehaviour
         private set => score = value;
     }
     private string playerHighName;
-    public string _playerHighName
+    public string _playerHighName       // ENCAPSULATION
     {
         get
         {
@@ -34,7 +34,7 @@ public class MainManager : MonoBehaviour
         private set => playerHighName = value;
     }
     private float highScore;
-    public float _highScore
+    public float _highScore             // ENCAPSULATION
     {
         get
         {
@@ -117,7 +117,7 @@ public class MainManager : MonoBehaviour
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
-    private void LoadData() // Between sessions data load
+    private void LoadData() // ABSTRACTION (Data is being loaded between sessions)
     {
         string path = Application.persistentDataPath + "/savefile.json";
         if (File.Exists(path))

@@ -33,13 +33,13 @@ public class UIHandler : MonoBehaviour
         MainManager.instance.StartGame();
     }
 
-    private void MakeCursorVisible()
+    private void MakeCursorVisible()        // ABSTRACTION
     {
         Cursor.lockState = CursorLockMode.Confined;     // Make mouse cursor visible after an FPS scene
         Cursor.visible = true;
     }
 
-    private void SetUIText()
+    private void SetUIText()                // ABSTRACTION
     {
         MainManager tempInst = MainManager.instance;
         highScoreText.text = tempInst._playerHighName + ": " + tempInst._highScore + '\n' + "Your Time: " + tempInst._score;       // Score field text
